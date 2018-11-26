@@ -15,8 +15,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        value.isHidden = true
-        //view?.backgroundColor = UIColor(red: 152, green: 252, blue: 196, alpha: 1)
+        answer.text = "You are ..."
+        value.text = "IMC:..."
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -35,46 +35,41 @@ class ViewController: UIViewController {
         
         
         if (weight.text != "" && height.text != "") {
-            var isNum1 = CharacterSet.decimalDigits.isSuperset(of : CharacterSet(charactersIn: weight.text!))
-            var isNum2 = CharacterSet.decimalDigits.isSuperset(of : CharacterSet(charactersIn: height.text!))
+            let isNum1 = CharacterSet.decimalDigits.isSuperset(of : CharacterSet(charactersIn: weight.text!))
+            let isNum2 = CharacterSet.decimalDigits.isSuperset(of : CharacterSet(charactersIn: height.text!))
             if (isNum1 && isNum2) {
                 if (heightNum! > Double(100)) {
                     heightNum! /= 100
                 }
             
                 result = round(weightNum! / pow(heightNum!, 2) * 10) / 10
-                value.isHidden = false
-                value.text = String(result)
+                value.text = "IMC: \(String(result))"
                 switch result {
                 case result where result <= 18.4:
-                    answer.text = "Under weight"
+                    answer.text = "You are Under weight"
                     answer.textColor = UIColor.red
-                    print("result is inferior at 18.4")
                 case result where result <= 25:
-                    answer.text = "Normal weight"
+                    answer.text = "You are Normal weight"
                     answer.textColor = UIColor.green
-                    print("result is superior at 18.4 but inferior at 25")
                 case result where result <= 30:
-                    answer.text = "Over weight"
+                    answer.text = "You are Over weight"
                     answer.textColor = UIColor.red
-                    print("result is superior at 25 but inferior at 30")
                 case result where result > 30:
                     answer.textColor = UIColor.red
-                    answer.text = "Obese weight"
-                    print("result is superior at 30")
+                    answer.text = "You are Obese weight"
                 default:
                     print("default")
                 }
                 print("weightNum = \(weightNum!) && heightNum = \(heightNum!) && result = \(result)")
                 print("num1 = \(isNum1) && num2 = \(isNum2)")
             } else {
-                value.isHidden = true
+                value.text = "IMC:..."
                 answer.textColor = UIColor.red
                 answer.text = "You can only use numerical number"
             }
 
         } else {
-            value.isHidden = true
+            value.text = "IMC:..."
             answer.textColor = UIColor.red
             answer.text = "You need to fill every field"
         }
